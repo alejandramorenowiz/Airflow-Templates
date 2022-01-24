@@ -4,7 +4,7 @@ import os.path
 import pandas as pd
 import io
 from airflow import DAG
-from custom_modules.operator_s3_to_postgres import S3ToPostgresTransfer
+#from custom_modules.operator_s3_to_postgres import S3ToPostgresTransfer
 from airflow.operators.python_operator import PythonOperator
 from airflow.exceptions import AirflowException
 
