@@ -4,6 +4,7 @@ from airflow.models import BaseOperator
 from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.amazon.aws.utils.redshift import build_credentials_block
 from airflow.providers.postgres.hooks.postgres import PostgresHook
+from typing import List, Optional, Union
 
 import pandas as pd
 
