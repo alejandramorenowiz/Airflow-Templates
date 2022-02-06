@@ -132,7 +132,7 @@ class S3ToPostgresTransfer(BaseOperator):
         # ISO-8859-1 codificación preferidad por
         # Microsoft, en Linux es UTF-8
 
-         with open(ruta_archivo, proposito_del_archivo, encoding=codificación) as manipulador_de_archivo:
+        with open(ruta_archivo, proposito_del_archivo, encoding=codificación) as manipulador_de_archivo:
         
              # Read dile with the DDL CREATE TABLE
              SQL_COMMAND_CREATE_TBL = manipulador_de_archivo.read()
