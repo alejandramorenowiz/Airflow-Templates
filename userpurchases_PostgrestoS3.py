@@ -25,7 +25,7 @@ postgres_to_S3_operator = PostgresToS3Operator(
                             table= 'user_purchases',
                             s3_bucket = 'customerbucketam',
                             s3_key =  'user_purchase.csv',
-                            aws_conn_postgres_id = 'postgres_default',
+                            postgres_conn_id='postgres_default',
                             aws_conn_id = 'aws_default',   
                             dag = dag
 )
