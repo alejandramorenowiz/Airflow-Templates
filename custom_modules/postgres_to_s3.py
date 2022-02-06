@@ -5,8 +5,6 @@ from airflow.providers.amazon.aws.hooks.s3 import S3Hook
 from airflow.providers.postgres.hooks.postgres import PostgresHook
 from typing import List, Optional, Union
 
-AVAILABLE_METHODS = ['APPEND', 'REPLACE', 'UPSERT']
-
 import pandas as pd
 
 class PostgresToS3Operator(BaseOperator):
@@ -66,7 +64,7 @@ class PostgresToS3Operator(BaseOperator):
         column_list: Optional[List[str]] = None,
         copy_options: Optional[List] = None,
         autocommit: bool = False,
-        #method: str = 'APPEND',
+        method: str = 'APPEND',
         upsert_keys: Optional[List[str]] = None,
         **kwargs,
     ) -> None:
