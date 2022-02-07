@@ -25,7 +25,7 @@ s3_to_postgres_operator = S3ToPostgresTransfer(
                             table= 'user_purchases',
                             s3_bucket = 'customerbucketam',
                             s3_key =  'user_purchase.csv',
-                            postgres_conn_id = 'postgres_default',
+                            aws_conn_postgres_id = 'postgres_default',
                             aws_conn_id = 'aws_default',   
                             dag = dag
 )
