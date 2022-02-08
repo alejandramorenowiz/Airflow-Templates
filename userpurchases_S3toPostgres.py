@@ -10,8 +10,8 @@ from custom_modules.s3_to_postgres import S3ToPostgresTransfer
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,        
-    'start_date'=datetime(2022, 1, 1),
-     catchup=False
+    'start_date': airflow.utils.dates.days_ago(1),
+    catchup=False
 }
 
 dag = DAG('dag_insert_userpurchases_s3toPostgres', 
