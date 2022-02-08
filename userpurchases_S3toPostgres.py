@@ -13,7 +13,7 @@ default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False, 
     'schedule_interval': '@once',
-    'start_date':datetime(2022, 1, 1),
+    'start_date': airflow.utils.dates.days_ago(1),
     'catchup':False
 }
 
