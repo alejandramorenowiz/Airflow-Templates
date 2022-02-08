@@ -1,7 +1,7 @@
 from datetime import timedelta
 from airflow import DAG
 import airflow.utils.dates
-
+from datetime import datetime
 import sys
 
 #sys.path.append("/opt/airflow/dags/repo/custom_modules")
@@ -10,7 +10,8 @@ from custom_modules.s3_to_postgres import S3ToPostgresTransfer
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,        
-    'start_date': airflow.utils.dates.days_ago(1),
+    #'start_date': airflow.utils.dates.days_ago(1),
+    'start_date':datetime(2022, 01, 01)
     'catchup':False
 }
 
