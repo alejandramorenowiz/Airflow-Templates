@@ -4,7 +4,6 @@ import airflow.utils.dates
 
 import sys
 
-#sys.path.append("/opt/airflow/dags/repo/custom_modules")
 from custom_modules.postgres_to_s3 import PostgresToS3Operator
 
 default_args = {
