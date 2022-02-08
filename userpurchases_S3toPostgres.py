@@ -9,8 +9,7 @@ from custom_modules.s3_to_postgres import S3ToPostgresTransfer
 
 default_args = {
     'owner': 'alejandra.moreno',
-    'depends_on_past': False,
-    'schedule_interval'=@once,        
+    'depends_on_past': False,        
     'start_date'=datetime(2022, 1, 1),
      catchup=False
 }
@@ -18,12 +17,6 @@ default_args = {
 dag = DAG('dag_insert_userpurchases_s3toPostgres', 
         default_args = default_args,
         description='Insert Data from CSV in S3 To Postgres')
-
-dag = DAG('dag_insert_userpurchases_s3toPostgres', 
-          description='Insert Data from CSV To Postgres',
-          schedule_interval='@once',        
-          start_date=datetime(2022, 1, 1),
-          catchup=False)
 
 s3_to_postgres_operator = S3ToPostgresTransfer(
                             task_id = 'dag_s3_to_postgres',
