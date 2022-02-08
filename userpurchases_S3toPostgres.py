@@ -11,7 +11,7 @@ default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,        
     #'start_date': airflow.utils.dates.days_ago(1),
-    'start_date':datetime(2022, 01, 01)
+    'start_date':datetime(2022, 1, 1)
     'catchup':False
 }
 
