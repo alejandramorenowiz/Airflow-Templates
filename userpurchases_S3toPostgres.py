@@ -11,15 +11,15 @@ from custom_modules.s3_to_postgres import S3ToPostgresTransfer
 
 default_args = {
     'owner': 'alejandra.moreno',
-    'depends_on_past': False, 
-    'schedule_interval': '@once',
-    'start_date': airflow.utils.dates.days_ago(1),
-    'catchup':False
+    'depends_on_past': False,
+    'start_date': airflow.utils.dates.days_ago(1)
 }
 
 dag = DAG('dag_insert_userpurchases_s3toPostgres', 
         default_args = default_args,
-        description='Insert Data from CSV in S3 To Postgres')
+        description='Insert Data from CSV in S3 To Postgres',
+        schedule_interval='@once',        
+        catchup=False)
 
 s3_to_postgres_operator = S3ToPostgresTransfer(
                             task_id = 'dag_s3_to_postgres',
