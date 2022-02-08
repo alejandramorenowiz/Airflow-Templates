@@ -10,7 +10,7 @@ from custom_modules.s3_to_postgres import S3ToPostgresTransfer
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
-    'schedule_interval'='@once',        
+    'schedule_interval'=@once,        
     'start_date'=datetime(2022, 1, 1),
      catchup=False
 }
