@@ -71,7 +71,7 @@ movie_review_job = EMRContainerOperator(
                             release_label="emr-6.3.0-latest",
                             job_driver=JOB_DRIVER_ARG,
                             configuration_overrides=CONFIGURATION_OVERRIDES_ARG,
-                            name="movie_reviews.py"
+                            name="movie_reviews.py",
                             dag = dag
 )
 
