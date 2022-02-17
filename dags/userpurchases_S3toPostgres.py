@@ -32,7 +32,7 @@ dag = DAG('dag_insert_userpurchases_s3toPostgres',
         default_args = default_args,
         description='Insert Data from CSV in S3 To Postgres',
         schedule_interval='None',
-        retries= 2,
+        retries= '2',
         catchup=False)
 
 s3_to_postgres_operator = S3ToPostgresTransfer(
