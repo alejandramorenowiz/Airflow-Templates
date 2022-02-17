@@ -9,7 +9,7 @@ import airflow.utils.dates
 
 # Stopper how to upload custom modules
 #sys.path.append("/opt/airflow/dags/custom_modules")
-from plugins.s3_to_postgres import S3ToPostgresTransfer
+from .s3_to_postgres import S3ToPostgresTransfer
 
 default_args = {
     'owner': 'alejandra.moreno',
