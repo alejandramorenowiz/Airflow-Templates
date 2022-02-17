@@ -12,8 +12,8 @@ from airflow.providers.amazon.aws.operators.emr_containers import EMRContainerOp
 
 # Stopper  - How to save environment variables
 # [START emr_eks_env_variables]
-VIRTUAL_CLUSTER_ID = {{conn.aws_default.extra_dejson["job_execution_role"]}}'
-JOB_ROLE_ARN = {{conn.aws_default.extra_dejson["job_execution_role"]}}'
+VIRTUAL_CLUSTER_ID = '{{conn.aws_default.extra_dejson["virtual_cluster_id"]}}'
+JOB_ROLE_ARN = '{{conn.aws_default.extra_dejson["job_execution_role"]}}'
 # [END emr_eks_env_variables]
 
 
