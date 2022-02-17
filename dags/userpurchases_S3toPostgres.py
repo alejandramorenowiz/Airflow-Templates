@@ -14,7 +14,7 @@ from plugins.s3_to_postgres import S3ToPostgresTransfer
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
-    'start_date': datetime(2022, 1, 1),
+    'start_date': datetime(2022, 1, 1)
 }
 
 dag = DAG('dag_insert_userpurchases_s3toPostgres', 
