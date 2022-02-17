@@ -12,8 +12,8 @@ from airflow.providers.amazon.aws.operators.emr_containers import EMRContainerOp
 
 # Stopper  - How to save environment variables
 # [START emr_eks_env_variables]
-VIRTUAL_CLUSTER_ID = os.getenv("VIRTUAL_CLUSTER_ID", "test-cluster")
-JOB_ROLE_ARN = os.getenv("JOB_ROLE_ARN", "arn:aws:iam::012345678912:role/emr_eks_default_role")
+VIRTUAL_CLUSTER_ID = os.getenv("VIRTUAL_CLUSTER_ID", "virtual_cluster_emroneks_am")
+JOB_ROLE_ARN = os.getenv("JOB_ROLE_ARN", "arn:aws:emr-containers:us-east-2:306718468668:/virtualclusters/b2ouo8yc4f7x2vnr2bkzhxfb0")
 # [END emr_eks_env_variables]
 
 
