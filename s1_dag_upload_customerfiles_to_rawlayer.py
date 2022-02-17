@@ -42,5 +42,6 @@ log_review_raw_transfer = S3CopyObjectOperator(
                             source_bucket_name='customerbucketam',
                             dest_bucket_name='staging-layer20220217062437544100000006', 
                             dag = dag
+)
 
 moview_review_raw_transfer >> log_review_raw_transfer
