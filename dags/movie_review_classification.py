@@ -12,11 +12,8 @@ from airflow.providers.amazon.aws.operators.emr_containers import EMRContainerOp
 
 # Stopper  - How to save environment variables
 # [START emr_eks_env_variables]
-VIRTUAL_CLUSTER_ID = os.getenv("VIRTUAL_CLUSTER_ID", "test-cluster")
-JOB_ROLE_ARN = os.getenv("JOB_ROLE_ARN", "arn:aws:iam::012345678912:role/emr_eks_default_role")
-
-c = BaseHook.get_connection("emr_eks")
-cluster_args = c.extra_dejson
+VIRTUAL_CLUSTER_ID = '{{conn.aws_default.extra_dejson["virtual_cluster_id"]}}'
+JOB_ROLE_ARN = '{{conn.aws_default.extra_dejson["job_execution_role"]}}'
 # [END emr_eks_env_variables]
 
 
@@ -69,10 +66,8 @@ dag = DAG('dag__moviereview_job',
 
 movie_review_job = EMRContainerOperator(
                             task_id = 'dag_movie_review_job',
-                            virtual_cluster_id=cluster_args.get("virtual_cluster_id"),
-                            #virtual_cluster_id=VIRTUAL_CLUSTER_ID,
-                            execution_role_arn=cluster_args.get("job_role_arn"),
-                            #execution_role_arn=JOB_ROLE_ARN,                   
+                            virtual_cluster_id=VIRTUAL_CLUSTER_ID,
+                            execution_role_arn=JOB_ROLE_ARN,              
                             release_label="emr-6.3.0-latest",
                             job_driver=JOB_DRIVER_ARG,
                             configuration_overrides=CONFIGURATION_OVERRIDES_ARG,
