@@ -25,14 +25,14 @@ from plugins.s3_to_postgres import S3ToPostgresTransfer
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
-    'start_date': datetime(2022, 1, 1)
+    'start_date': datetime(2022, 1, 1),
+    'retries': 2,
+    'schedule_interval': 'None',
 }
 
 dag = DAG('dag_insert_userpurchases_s3toPostgres', 
         default_args = default_args,
         description='Insert Data from CSV in S3 To Postgres',
-        schedule_interval='None',
-        retries= '2',
         catchup=False)
 
 s3_to_postgres_operator = S3ToPostgresTransfer(
