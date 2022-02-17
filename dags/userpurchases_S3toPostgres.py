@@ -26,8 +26,7 @@ default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
     'start_date': datetime(2022, 1, 1),
-    'retries': 2,
-    'schedule_interval': 'None',
+    'schedule_interval': 'None'
 }
 
 dag = DAG('dag_insert_userpurchases_s3toPostgres', 
