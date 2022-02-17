@@ -20,7 +20,7 @@ JOB_ROLE_ARN = os.getenv("JOB_ROLE_ARN", "arn:aws:emr-containers:us-east-2:30671
 # [START emr_eks_config]
 JOB_DRIVER_ARG = {
     "sparkSubmitJobDriver": {
-        "entryPoint": "s3://spark-scripts2021xxxxxx/movie_review_logic.py",
+        "entryPoint": "s3://spark-jobscripts/movie_review_logic.py",
         "sparkSubmitParameters": "--conf spark.executors.instances=1"
                                  " --conf spark.executors.memory=2G"
                                  " --conf spark.executor.cores=1"
