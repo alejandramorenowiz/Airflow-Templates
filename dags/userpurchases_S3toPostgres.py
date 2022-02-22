@@ -19,8 +19,8 @@ from botocore.exceptions import ClientError
 
 
 # Stopper how to upload custom modules
-#sys.path.append("/opt/airflow/dags/custom_modules")
-from plugins.s3_to_postgres import S3ToPostgresTransfer
+sys.path.append("/opt/airflow/dags/custom_modules")
+from custom_modules.s3_to_postgres import S3ToPostgresTransfer
 
 default_args = {
     'owner': 'alejandra.moreno',
