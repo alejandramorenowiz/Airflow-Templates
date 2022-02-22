@@ -12,12 +12,13 @@ from airflow.hooks.S3_hook import S3Hook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
+
 import boto3
 from botocore.exceptions import ClientError
 
 
 def print_welcome():
-    return 'S3 to Postgres transfer - Airflow DAG!'
+    return 'Welcome from custom operator - Airflow DAG!'
 
 class S3ToPostgresTransfer(BaseOperator):
     """S3ToPostgresTransfer: custom operator created to move small csv files of data
@@ -63,15 +64,14 @@ class S3ToPostgresTransfer(BaseOperator):
 
     def execute(self, context):
 
-        self.log.info('Executing custom operator S3ToPostgresTransfer')
+        self.log.info('Into the custom operator S3ToPostgresTransfer')
 
         # Create an instances to connect S3 and Postgres DB.
         self.log.info(self.aws_conn_postgres_id)
 
         self.pg_hook = PostgresHook(postgre_conn_id=self.aws_conn_postgres_id)
-        self.log.info(" PostgresHook connected")
+        self.log.info("Init PostgresHook..")
         self.s3 = S3Hook(aws_conn_id=self.aws_conn_id, verify=self.verify)
-        self.log.info(" AWS S3 connected")
 
         self.log.info("Downloading S3 file")
         self.log.info(self.s3_key + ', ' + self.s3_bucket)
@@ -108,7 +108,7 @@ class S3ToPostgresTransfer(BaseOperator):
             'customer_id': 'string',
             'country': 'string',
         }
-        custom_date_parser = lambda x: pd.to_datetime.strptime(x, "%m/%d/%Y %H:%M")
+        custom_date_parser = lambda x: datetime.strptime(x, "%m/%d/%Y %H:%M")
 
         # read a csv file with the properties required.
         df_userpurchases = pd.read_csv(io.StringIO(list_srt_content),
@@ -132,22 +132,21 @@ class S3ToPostgresTransfer(BaseOperator):
         # Read the file with the DDL SQL to create the table purchase in postgres DB.
         nombre_de_archivo = "bootcampdb.user_purchases.sql"
 
-        ruta_archivo = '/usr/local/airflow/custom_modules/assets' + os.path.sep + nombre_de_archivo
+        ruta_archivo = os.path.sep + nombre_de_archivo
         self.log.info(ruta_archivo)
         # proposito_del_archivo = "r"  # r es de Lectura
         # codificación = "UTF-8"  # Tabla de Caracteres,
         # ISO-8859-1 codificación preferidad por
         # Microsoft, en Linux es UTF-8
 
-        with open(ruta_archivo, proposito_del_archivo, encoding=codificación) as manipulador_de_archivo:
-        
-             # Read dile with the DDL CREATE TABLE
-             SQL_COMMAND_CREATE_TBL = manipulador_de_archivo.read()
-             manipulador_de_archivo.close()
-        
-             # Display the content
-             self.log.info(SQL_COMMAND_CREATE_TBL)
-       
+        # with open(ruta_archivo, proposito_del_archivo, encoding=codificación) as manipulador_de_archivo:
+        #
+        #     # Read dile with the DDL CREATE TABLE
+        #     SQL_COMMAND_CREATE_TBL = manipulador_de_archivo.read()
+        #     manipulador_de_archivo.close()
+        #
+        #     # Display the content
+        #     self.log.info(SQL_COMMAND_CREATE_TBL)
         SQL_COMMAND_CREATE_TBL = """
         DROP TABLE IF EXISTS bootcampdb.user_purchases;
         
@@ -168,7 +167,7 @@ class S3ToPostgresTransfer(BaseOperator):
         # Display the content
         self.log.info(SQL_COMMAND_CREATE_TBL)
 
-        # execute command to create table in postgres.
+            # execute command to create table in postgres.
         self.pg_hook.run(SQL_COMMAND_CREATE_TBL)
 
         # set the columns to insert, in this case we ignore the id, because is autogenerate.
@@ -205,6 +204,6 @@ class S3ToPostgresTransfer(BaseOperator):
                            invoice_date: {4} - \
                            unit_price: {5} - \
                            customer_id: {6} - \
-                           country: {7} ".
-                           format(source[0], source[1], source[2], source[3], 
-                                source[4], source[5], source[6], source[7]))
+                           country: {7} ".format(source[0], source[1], source[2], source[3], source[4], source[5],
+                                                 source[6],
+                                                 source[7]))
