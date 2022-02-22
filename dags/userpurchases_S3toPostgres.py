@@ -3,24 +3,18 @@ from datetime import datetime
 import os.path
 import pandas as pd
 import io
+
+sys.path.append("/opt/airflow/dags/repo/custom_modules")
+from s3_to_postgres import S3ToPostgresOperator
+
 from airflow import DAG
-#from custom_modules.operator_s3_to_postgres import S3ToPostgresTransfer
 from airflow.operators.python_operator import PythonOperator
 from airflow.exceptions import AirflowException
-
 from airflow.hooks.postgres_hook import PostgresHook
 from airflow.hooks.S3_hook import S3Hook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
-
-import boto3
-from botocore.exceptions import ClientError
-
-
-# Stopper how to upload custom modules
-sys.path.append("/opt/airflow/dags/custom_modules")
-from custom_modules.s3_to_postgres import S3ToPostgresTransfer
 
 default_args = {
     'owner': 'alejandra.moreno',
