@@ -3,6 +3,7 @@ from datetime import datetime
 import os.path
 import pandas as pd
 import io
+import warnings
 
 sys.path.append("/opt/airflow/dags/repo/custom_modules")
 from s3_to_postgres import S3ToPostgresTransfer
