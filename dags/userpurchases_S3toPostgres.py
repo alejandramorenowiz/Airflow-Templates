@@ -5,7 +5,7 @@ import pandas as pd
 import io
 
 sys.path.append("/opt/airflow/dags/repo/custom_modules")
-from s3_to_postgres import S3ToPostgresOperator
+from s3_to_postgres import S3ToPostgresTransfer
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
