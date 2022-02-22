@@ -1,6 +1,7 @@
 import sys
 from datetime import datetime
 import os.path
+import pandas as pd
 import io
 
 sys.path.append("/opt/airflow/dags/repo/custom_modules")
@@ -15,6 +16,9 @@ from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
 
+import boto3
+from botocore.exceptions import ClientError
+
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
@@ -23,9 +27,15 @@ default_args = {
 }
 
 dag = DAG('dag_insert_userpurchases_s3toPostgres', 
-        default_args = default_args,
+        default_args = default_args,     
         description='Insert Data from CSV in S3 To Postgres',
-        catchup=False)
+        schedule_interval='@once')
+
+
+welcome_operator = PythonOperator(task_id='welcome_task', 
+                                  python_callable=print_welcome, 
+                                  dag=dag)
+
 
 s3_to_postgres_operator = S3ToPostgresTransfer(
                             task_id = 'dag_s3_to_postgres',
@@ -38,4 +48,16 @@ s3_to_postgres_operator = S3ToPostgresTransfer(
                             dag = dag
 )
 
-s3_to_postgres_operator
+s3_to_postgres_operator = S3ToPostgresTransfer(
+                            task_id = 'dag_s3_to_postgres',
+                            schema =  'bootcampdb',
+                            table= 'user_purchases',
+                            s3_bucket = 'customerbucketam',
+                            s3_key =  'user_purchase.csv',
+                            aws_conn_postgres_id = 'postgres_default',
+                            aws_conn_id = 'aws_default',   
+                            dag = dag
+)
+
+welcome_operator >> s3_to_postgres_operator
+
