@@ -40,7 +40,7 @@ log_review_raw_transfer = S3CopyObjectOperator(
                             dest_bucket_key='log_reviews.csv',
                             aws_conn_id='aws_default',
                             source_bucket_name='customerbucketam',
-                            dest_bucket_name='raw-layer20220217062437543400000005', 
+                            dest_bucket_name='raw-layer20220222051935712600000006', 
                             dag = dag
 )
 
