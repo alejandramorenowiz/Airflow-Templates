@@ -1,7 +1,6 @@
 import sys
 from datetime import datetime
 import os.path
-import pandas as pd
 import io
 
 sys.path.append("/opt/airflow/dags/repo/custom_modules")
