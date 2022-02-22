@@ -109,7 +109,7 @@ class S3ToPostgresTransfer(BaseOperator):
             'customer_id': 'string',
             'country': 'string',
         }
-        custom_date_parser = lambda x: datetime.strptime(x, "%m/%d/%Y %H:%M")
+        custom_date_parser = lambda x: pd.to_datetime(x).strftime("%m/%d/%Y %H:%M")
 
         # read a csv file with the properties required.
         df_userpurchases = pd.read_csv(io.StringIO(list_srt_content),
