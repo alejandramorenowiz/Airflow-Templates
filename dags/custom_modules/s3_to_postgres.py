@@ -13,7 +13,6 @@ from airflow.hooks.S3_hook import S3Hook
 from airflow.models import BaseOperator
 from airflow.utils.decorators import apply_defaults
 
-
 import boto3
 from botocore.exceptions import ClientError
 
@@ -109,8 +108,9 @@ class S3ToPostgresTransfer(BaseOperator):
             'customer_id': 'string',
             'country': 'string',
         }
+ 
         custom_date_parser = lambda x: pd.to_datetime(x).strftime("%m/%d/%Y %H:%M")
-
+    
         # read a csv file with the properties required.
         df_userpurchases = pd.read_csv(io.StringIO(list_srt_content),
                                   header=0,
@@ -131,16 +131,16 @@ class S3ToPostgresTransfer(BaseOperator):
         self.log.info(list_df_userpurchases)
 
         # Read the file with the DDL SQL to create the table purchase in postgres DB.
-        # nombre_de_archivo = "bootcampdb.user_purchases.sql"
+        nombre_de_archivo = "bootcampdb.user_purchases.sql"
 
-        # ruta_archivo = os.path.sep + nombre_de_archivo
-        # self.log.info(ruta_archivo)
+        ruta_archivo = os.path.sep + nombre_de_archivo
+        self.log.info(ruta_archivo)
         # proposito_del_archivo = "r"  # r es de Lectura
         # codificación = "UTF-8"  # Tabla de Caracteres,
         # ISO-8859-1 codificación preferidad por
         # Microsoft, en Linux es UTF-8
 
-        ## with open(ruta_archivo, proposito_del_archivo, encoding=codificación) as manipulador_de_archivo:
+        # with open(ruta_archivo, proposito_del_archivo, encoding=codificación) as manipulador_de_archivo:
         #
         #     # Read dile with the DDL CREATE TABLE
         #     SQL_COMMAND_CREATE_TBL = manipulador_de_archivo.read()
