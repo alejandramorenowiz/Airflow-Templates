@@ -23,6 +23,15 @@ dag = DAG('s1_dag_upload_customerfiles_to_rawlayer',
         schedule_interval='@once',        
         catchup=False)
 
+moview_review_raw_transfer = S3CopyObjectOperator(
+                            task_id = 'dag_user_purchase_transfer',
+                            source_bucket_key='user_purchase.csv',
+                            dest_bucket_key='user_purchase.csv',
+                            aws_conn_id='aws_default',
+                            source_bucket_name='customerbucketam',
+                            dest_bucket_name='raw-layer20220223034947208900000006', 
+                            dag = dag
+)
 
 moview_review_raw_transfer = S3CopyObjectOperator(
                             task_id = 'dag_movie_review_transfer',
@@ -44,4 +53,4 @@ log_review_raw_transfer = S3CopyObjectOperator(
                             dag = dag
 )
 
-moview_review_raw_transfer >> log_review_raw_transfer
+dag_user_purchase_transfe >> moview_review_raw_transfer >> log_review_raw_transfer
