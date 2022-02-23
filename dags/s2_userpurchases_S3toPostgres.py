@@ -27,7 +27,7 @@ default_args = {
     'schedule_interval': 'None'
 }
 
-dag = DAG('dag_insert_userpurchases_s3toPostgres', 
+dag = DAG('s2_dag_insert_userpurchases_s3toPostgres', 
         default_args = default_args,     
         description='Insert Data from CSV in S3 To Postgres',
         schedule_interval='@once')
