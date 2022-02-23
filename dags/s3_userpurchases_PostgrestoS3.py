@@ -17,7 +17,7 @@ default_args = {
     'start_date': airflow.utils.dates.days_ago(1)
 }
 
-dag = DAG('dag_insert_userpurchases_PostgrestoS3', 
+dag = DAG('s3_dag_insert_userpurchases_PostgrestoS3', 
         default_args = default_args,
         description='Insert Data from Postgres To S3',
         schedule_interval='@once',        
