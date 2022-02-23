@@ -53,4 +53,4 @@ log_review_raw_transfer = S3CopyObjectOperator(
                             dag = dag
 )
 
-dag_user_purchase_transfe >> moview_review_raw_transfer >> log_review_raw_transfer
+dag_user_purchase_transfer >> moview_review_raw_transfer >> log_review_raw_transfer
