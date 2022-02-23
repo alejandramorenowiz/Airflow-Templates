@@ -1,27 +1,37 @@
 import sys
+from datetime import datetime
 import os.path
+import pandas as pd
 import io
-from datetime import timedelta
+import warnings
+
+sys.path.append("/opt/airflow/dags/repo/custom_modules")
+from postgres_to_s3 import PostgresToS3Operator
 
 from airflow import DAG
+from airflow.operators.python_operator import PythonOperator
 from airflow.exceptions import AirflowException
+from airflow.hooks.postgres_hook import PostgresHook
+from airflow.hooks.S3_hook import S3Hook
+from airflow.models import BaseOperator
+from airflow.utils.decorators import apply_defaults
 import airflow.utils.dates
 
-# Stopper how to upload custom modules
-#sys.path.append("/opt/airflow/dags/custom_modules")
-from custom_modules.postgres_to_s3 import PostgresToS3Operator
+import boto3
+from botocore.exceptions import ClientError
+
 
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(1)
+    'start_date': datetime(2022, 1, 1),
+    'schedule_interval': 'None'
 }
 
 dag = DAG('s3_dag_insert_userpurchases_PostgrestoS3', 
         default_args = default_args,
         description='Insert Data from Postgres To S3',
-        schedule_interval='@once',        
-        catchup=False)
+        schedule_interval='@once')
 
 postgres_to_S3_operator = PostgresToS3Operator(
                             task_id = 'dag_postgres_to_s3',
