@@ -21,10 +21,10 @@ JOB_ROLE_ARN = '{{conn.aws_default.extra_dejson["job_execution_role"]}}'
 JOB_DRIVER_ARG = {
     "sparkSubmitJobDriver": {
         "entryPoint": "s3://spark-jobscripts/movie_review_logic.py",
-        "sparkSubmitParameters": "--conf spark.executors.instances=1"
+        "sparkSubmitParameters": "--conf spark.executors.instances=2"
                                  " --conf spark.executors.memory=2G"
-                                 " --conf spark.executor.cores=1"
-                                 " --conf spark.driver.cores=1"
+                                 " --conf spark.executor.cores=2"
+                                 " --conf spark.driver.cores=2"
     }
 }
 
@@ -33,9 +33,8 @@ CONFIGURATION_OVERRIDES_ARG = {
         {
             "classification": "spark-defaults",
             "properties": {
-                "spark.hadoop.hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",  # noqa: E501
-                #OR
-                #"spark.dynamicAllocation.enabled": "false", "spark.kubernetes.executor.deleteOnTermination": "true", "spark.kubernetes.container.image": #spark_image, "spark.hadoop.fs.s3a.multiobjectdelete.enable": "false"
+                #"spark.hadoop.hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",  # noqa: E501
+                "spark.dynamicAllocation.enabled": "false", "spark.kubernetes.executor.deleteOnTermination": "true", "spark.kubernetes.container.image": #spark_image, "spark.hadoop.fs.s3a.multiobjectdelete.enable": "false"
             },
         }
     ],
@@ -67,7 +66,8 @@ dag = DAG('dag__moviereview_job',
 movie_review_job = EMRContainerOperator(
                             task_id = 'dag_movie_review_job',
                             virtual_cluster_id=VIRTUAL_CLUSTER_ID,
-                            execution_role_arn=JOB_ROLE_ARN,              
+                            execution_role_arn=JOB_ROLE_ARN,  
+                            max_tries=5,
                             release_label="emr-6.3.0-latest",
                             job_driver=JOB_DRIVER_ARG,
                             configuration_overrides=CONFIGURATION_OVERRIDES_ARG,
