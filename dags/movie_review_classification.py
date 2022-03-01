@@ -33,10 +33,18 @@ CONFIGURATION_OVERRIDES_ARG = {
         {
             "classification": "spark-defaults",
             "properties": {
-                "spark.hadoop.hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",  # noqa: E501
-                #"spark.dynamicAllocation.enabled": "false", "spark.kubernetes.executor.deleteOnTermination": "true" #"spark.kubernetes.container.image": #spark_image, "spark.hadoop.fs.s3a.multiobjectdelete.enable": "false"
+               "spark.hadoop.hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",  # noqa: E50
             },
         }
+        #{
+        #    "classification": "spark-defaults",
+        #    "properties": {
+        #        "spark.dynamicAllocation.enabled": "false",
+        #        "spark.kubernetes.executor.deleteOnTermination": "true",
+        #        "spark.kubernetes.container.image": spark_image,
+        #        "spark.hadoop.fs.s3a.multiobjectdelete.enable": "false"
+        #    }
+        #}
     ],
     "monitoringConfiguration": {
         "cloudWatchMonitoringConfiguration": {
