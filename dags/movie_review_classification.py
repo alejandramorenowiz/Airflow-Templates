@@ -47,11 +47,11 @@ CONFIGURATION_OVERRIDES_ARG = {
         #}
     ],
     "monitoringConfiguration": {
-        "cloudWatchMonitoringConfiguration": {
-            "logGroupName": "/aws/emr-eks-spark",
-            "logStreamNamePrefix": "airflow",
-        }
-        OR
+        #"cloudWatchMonitoringConfiguration": {
+        #    "logGroupName": "/aws/emr-eks-spark",
+        #    "logStreamNamePrefix": "airflow",
+        #}
+        #OR
          "s3MonitoringConfiguration": {
             "logUri": "s3://customerbucketam"
         }
