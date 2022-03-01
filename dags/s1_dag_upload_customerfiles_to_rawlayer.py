@@ -29,7 +29,7 @@ user_purchase_raw_transfer = S3CopyObjectOperator(
                             dest_bucket_key='user_purchase.csv',
                             aws_conn_id='aws_default',
                             source_bucket_name='customerbucketam',
-                            dest_bucket_name='raw-layer20220223034947208900000006', 
+                            dest_bucket_name='raw-layer20220301034958761700000005', 
                             dag = dag
 )
 
