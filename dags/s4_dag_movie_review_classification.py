@@ -65,7 +65,7 @@ default_args = {
     'start_date': airflow.utils.dates.days_ago(1)
 }
 
-dag = DAG('dag__moviereview_job', 
+dag = DAG('s4_dag_movie_review_classification', 
         default_args = default_args,
         description='Executes movie review logic',
         schedule_interval='@once',        
