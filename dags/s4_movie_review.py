@@ -61,8 +61,6 @@ create_emr_cluster = EmrCreateJobFlowOperator(
     emr_conn_id="aws_default",
     dag=dag,
 )
-
-s3_clean = "clean_data/"
 SPARK_STEPS = [ # Note the params values are supplied to the operator
    
     {
@@ -128,4 +126,6 @@ terminate_emr_cluster = EmrTerminateJobFlowOperator(
     dag=dag,
 )
 
-create_emr_cluster > step_adder > step_checker > terminate_emr_cluster
+dag = DAG('s4_dag_movie_review', default_args = default_args, schedule_interval = '@daily')
+
+create_emr_cluster >> step_adder >> step_checker >> terminate_emr_cluster
