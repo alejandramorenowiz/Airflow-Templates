@@ -21,9 +21,9 @@ JOB_ROLE_ARN = '{{conn.aws_default.extra_dejson["job_execution_role"]}}'
 JOB_DRIVER_ARG = {
     "sparkSubmitJobDriver": {
         "entryPoint": "s3://spark-jobscripts/movie_review_logic.py",
-        "sparkSubmitParameters": "--conf spark.executors.instances=1"
+        "sparkSubmitParameters": "--conf spark.executors.instances=2"
                                  " --conf spark.executors.memory=2G"
-                                 " --conf spark.executor.cores=1"
+                                 " --conf spark.executor.cores=2"
                                  " --conf spark.driver.cores=1"
     }
 }
@@ -33,7 +33,9 @@ CONFIGURATION_OVERRIDES_ARG = {
         {
             "classification": "spark-defaults",
             "properties": {
-               "spark.hadoop.hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",  # noqa: E50
+            #   "spark.hadoop.hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory",  # noqa: E50
+                "spark.dynamicAllocation.enabled": "false",
+                "spark.kubernetes.executor.deleteOnTermination": "true"
             },
         }
         #{
