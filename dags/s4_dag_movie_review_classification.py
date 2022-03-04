@@ -20,7 +20,7 @@ JOB_ROLE_ARN = '{{conn.aws_default.extra_dejson["job_execution_role"]}}'
 # [START emr_eks_config]
 JOB_DRIVER_ARG = {
     "sparkSubmitJobDriver": {
-        "entryPoint": "s3://spark-jobscripts/movie_review_logic.py",
+        "entryPoint": "s3://spark-jobscripts/regex.py",
         "sparkSubmitParameters": "--conf spark.executors.instances=2"
                                  " --conf spark.executors.memory=2G"
                                  " --conf spark.executor.cores=2"
