@@ -23,7 +23,7 @@ SPARK_STEPS = [
                 "spark-submit",
                 "--deploy-mode",
                 "client",
-                f"s3://spark-jobscripts/movie_review_logic.py",
+                f"s3://spark-jobscripts/regex.py",
             ],
         },
     }
