@@ -7,12 +7,14 @@ from airflow.contrib.sensors.emr_step_sensor import  EmrStepSensor
 from airflow.contrib.operators.emr_add_steps_operator import EmrAddStepsOperator
 from airflow.contrib.operators.emr_terminate_job_flow_operator import EmrTerminateJobFlowOperator
 
+
 BUCKET_NAME = "customerbucketam"
 s3_data = "movie_review.csv"
 s3_script = "s3://spark-jobscripts/regex.py"
 s3_clean = "processed/reviews/"
 logs_location = "logs"
 
+dag = DAG('s4_dag_movie_review', default_args = default_args, schedule_interval = '@daily')
 
 JOB_FLOW_OVERRIDES = {
     "Name": "Movie review classifier",
@@ -126,6 +128,6 @@ terminate_emr_cluster = EmrTerminateJobFlowOperator(
     dag=dag,
 )
 
-dag = DAG('s4_dag_movie_review', default_args = default_args, schedule_interval = '@daily')
+
 
 create_emr_cluster >> step_adder >> step_checker >> terminate_emr_cluster
