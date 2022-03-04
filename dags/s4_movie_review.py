@@ -1,7 +1,6 @@
 import airflow.utils.dates
 from airflow import DAG
 
-from custom_dags.dag_s3_to_postgres import S3ToPostgresTransfer
 from airflow.contrib.operators.emr_create_job_flow_operator import EmrCreateJobFlowOperator
 from airflow.contrib.sensors.emr_job_flow_sensor import EmrJobFlowSensor
 from airflow.contrib.sensors.emr_step_sensor import  EmrStepSensor
