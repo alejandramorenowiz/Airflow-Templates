@@ -14,7 +14,18 @@ s3_script = "s3://spark-jobscripts/regex.py"
 s3_clean = "processed/reviews/"
 logs_location = "logs"
 
-dag = DAG('s4_dag_movie_review', default_args = default_args, schedule_interval = '@daily')
+default_args = {
+    'owner': 'alejandra.moreno',
+    'depends_on_past': False,
+    'start_date': airflow.utils.dates.days_ago(1)
+}
+
+dag = DAG('s4_dag_movie_', 
+        default_args = default_args,
+        description='Executes movie review logic',
+        schedule_interval='@once',        
+        catchup=False)
+
 
 JOB_FLOW_OVERRIDES = {
     "Name": "Movie review classifier",
