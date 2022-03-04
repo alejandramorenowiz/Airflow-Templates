@@ -21,10 +21,10 @@ JOB_ROLE_ARN = '{{conn.aws_default.extra_dejson["job_execution_role"]}}'
 JOB_DRIVER_ARG = {
     "sparkSubmitJobDriver": {
         "entryPoint": "s3://spark-jobscripts/movie_review_logic.py",
-        "sparkSubmitParameters": "--conf spark.executors.instances=2"
+        "sparkSubmitParameters": "--conf spark.executors.instances=1"
                                  " --conf spark.executors.memory=2G"
-                                 " --conf spark.executor.cores=2"
-                                 " --conf spark.driver.cores=2"
+                                 " --conf spark.executor.cores=1"
+                                 " --conf spark.driver.cores=1"
     }
 }
 
