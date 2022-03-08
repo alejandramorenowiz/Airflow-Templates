@@ -64,14 +64,14 @@ JOB_FLOW_OVERRIDES = {
                 "Name": "Master node",
                 "Market": "SPOT",
                 "InstanceRole": "MASTER",
-                "InstanceType": "m1.medium",
+                "InstanceType": "m5.xlarge",
                 "InstanceCount": 1,
             },
             {
                 "Name": "Core - 2",
                 "Market": "SPOT", # Spot instances are a "use as available" instances
                 "InstanceRole": "CORE",
-                "InstanceType": "m1.medium",
+                "InstanceType": "m5.xlarge",
                 "InstanceCount": 2,
             },
         ],
