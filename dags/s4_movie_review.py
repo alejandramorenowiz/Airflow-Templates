@@ -92,21 +92,6 @@ create_emr_cluster = EmrCreateJobFlowOperator(
     dag=dag,
 )
 
-# Add your steps to the EMR cluster
-step_adder = EmrAddStepsOperator(
-    task_id="add_steps",
-    job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
-    aws_conn_id="aws_default",
-    steps=SPARK_STEPS,
-    params={ # these params are used to fill the paramterized values in SPARK_STEPS json
-        "BUCKET_NAME": BUCKET_NAME,
-        "s3_data": s3_data,
-        "s3_script": s3_script,
-        "s3_clean": s3_clean,
-    },
-    dag=dag,
-)
-
 job_sensor = EmrJobFlowSensor(task_id='check_job_flow',
  job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
  dag = dag)
