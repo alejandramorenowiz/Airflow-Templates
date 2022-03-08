@@ -29,7 +29,7 @@ user_purchase_raw_transfer = S3CopyObjectOperator(
                             dest_bucket_key='user_purchase.csv',
                             aws_conn_id='aws_default',
                             source_bucket_name='customerbucketam',
-                            dest_bucket_name='raw-layer20220303232024349700000005', 
+                            dest_bucket_name='raw-layer20220307050201862300000006', 
                             dag = dag
 )
 
@@ -39,7 +39,7 @@ moview_review_raw_transfer = S3CopyObjectOperator(
                             dest_bucket_key='movie_review.csv',
                             aws_conn_id='aws_default',
                             source_bucket_name='customerbucketam',
-                            dest_bucket_name='raw-layer20220303232024349700000005', 
+                            dest_bucket_name='raw-layer20220307050201862300000006', 
                             dag = dag
 )
 
@@ -49,7 +49,7 @@ log_review_raw_transfer = S3CopyObjectOperator(
                             dest_bucket_key='log_reviews.csv',
                             aws_conn_id='aws_default',
                             source_bucket_name='customerbucketam',
-                            dest_bucket_name='raw-layer20220303232024349700000005', 
+                            dest_bucket_name='raw-layer20220307050201862300000006', 
                             dag = dag
 )
 
