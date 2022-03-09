@@ -35,6 +35,8 @@ SPARK_STEPS = [ # Note the params values are supplied to the operator
                 "spark-submit",
                 "--deploy-mode",
                 "client",
+                "--packages",
+                "com.databricks:spark-xml_2.12:0.14.0",
                 "s3://spark-jobscripts/log_review_logic.py",
             ],
         },
