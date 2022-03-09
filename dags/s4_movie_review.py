@@ -35,7 +35,7 @@ SPARK_STEPS = [ # Note the params values are supplied to the operator
                 "spark-submit",
                 "--deploy-mode",
                 "client",
-                "s3://spark-jobscripts/test.py",
+                "s3://spark-jobscripts/movie_review_logicv2.py",
             ],
         },
     }  
