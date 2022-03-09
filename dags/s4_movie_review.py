@@ -9,7 +9,7 @@ from airflow.contrib.operators.emr_terminate_job_flow_operator import EmrTermina
 
 BUCKET_NAME = "customerbucketam"
 s3_data = "movie_review.csv"
-s3_script = "s3://spark-jobscripts/test.py"
+s3_script = "s3://spark-jobscripts/movie_review_logicv2.py"
 s3_clean = "processed/reviews/"
 logs_location = "logs"
 
