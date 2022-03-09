@@ -45,7 +45,7 @@ SPARK_STEPS = [ # Note the params values are supplied to the operator
 
 
 JOB_FLOW_OVERRIDES = {
-    "Name": "Movie review classifier",
+    "Name": "Logs review classifier",
     "ReleaseLabel": "emr-6.5.0",
     "Applications": [{"Name": "Hadoop"}, {"Name": "Spark"}], # We want our EMR cluster to have HDFS and Spark
     "LogUri" : f"s3://{BUCKET_NAME}/{logs_location}",
