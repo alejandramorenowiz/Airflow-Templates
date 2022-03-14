@@ -1,4 +1,4 @@
-import airflow.utils.dates
+from datetime import datetime
 from airflow import DAG
 
 from airflow.contrib.operators.emr_create_job_flow_operator import EmrCreateJobFlowOperator
@@ -79,7 +79,8 @@ JOB_FLOW_OVERRIDES = {
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(1)
+    'start_date': datetime(2022, 1, 1),
+    'schedule_interval': 'None'
 }
 
 dag = DAG('s5_dag_logs_review_classification', 
