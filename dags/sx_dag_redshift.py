@@ -1,14 +1,8 @@
 import airflow.utils.dates
 from airflow import DAG
 import json
-#from airflow.providers.amazon.aws.operators.redshift_sql import RedshiftSQLOperator
-from airflow.providers.postgres.operators.postgres import PostgresOperator as RedshiftSQLOperator
-#from airflow.providers.amazon.aws.hooks.redshift import RedshiftHook
-from airflow.providers.postgres.hooks.postgres import PostgresHook as RedshiftHook
-from airflow.operators.python_operator import PythonOperator
-#from airflow.providers.amazon.aws.hooks import S3Hook
-from airflow.hooks.S3_hook  import  S3Hook
 
+from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
 
 _query = ["""
                       create external schema if not exists fma_schema
@@ -45,11 +39,9 @@ default_args = {
 
 dag = DAG('sx_dag_redshift', default_args = default_args, schedule_interval = '@daily')
 
-
-
-task_setup_external_queries = RedshiftSQLOperator(
-        postgres_conn_id='redshift_default',
-        task_id='setup_external_queries',
+setup_task_create_tables = RedshiftSQLOperator(
+        redshift_conn_id="redshift_default"
+        task_id='setup_task_create_table',
         sql= _query,
         autocommit = True,
         dag = dag
