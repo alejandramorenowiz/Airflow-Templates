@@ -97,6 +97,7 @@ default_args = {
 dag = DAG('s4_dag_movie_review_classification', 
         default_args = default_args,
         description='Executes movie review logic',
-        schedule_interval='@once')
+        schedule_interval='@once',
+        dag = dag)
 
 create_emr_cluster >> job_sensor
