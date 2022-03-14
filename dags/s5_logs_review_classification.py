@@ -13,16 +13,6 @@ s3_script = "s3://spark-jobscripts/log_review_logic.py"
 s3_clean = "processed/reviews/"
 logs_location = "logs"
 
-default_args = {
-    'owner': 'alejandra.moreno',
-    'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(1)
-}
-
-dag = DAG('s5_dag_logs_review_classification', 
-        default_args = default_args,
-        description='Executes logs review logic',
-        schedule_interval='@once')
 
 SPARK_STEPS = [ # Note the params values are supplied to the operator
    
@@ -98,5 +88,15 @@ job_sensor = EmrJobFlowSensor(task_id='check_job_flow',
  job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
  dag = dag)
 
+default_args = {
+    'owner': 'alejandra.moreno',
+    'depends_on_past': False,
+    'start_date': airflow.utils.dates.days_ago(1)
+}
+
+dag = DAG('s5_dag_logs_review_classification', 
+        default_args = default_args,
+        description='Executes logs review logic',
+        schedule_interval='@once')
 
 create_emr_cluster >> job_sensor
