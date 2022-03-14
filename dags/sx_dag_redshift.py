@@ -40,8 +40,8 @@ default_args = {
 
 dag = DAG('sx_dag_redshift', default_args = default_args, schedule_interval = '@daily')
 
-setup_task_create_tables = RedshiftSQLOperator(
-        redshift_conn_id="redshift_default",
+setup_task_create_tables = PostgresOperator((
+        postgres_conn_id='redshift_default',
         task_id='setup_task_create_table',
         sql= _query,
         autocommit = True,
