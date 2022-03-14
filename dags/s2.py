@@ -19,7 +19,7 @@ import datetime as dt
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
  
- class user_purchase():
+class user_purchase():
 
     @apply_defaults
     def __init__(
