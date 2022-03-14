@@ -75,18 +75,6 @@ JOB_FLOW_OVERRIDES = {
     "ServiceRole": "EMR_DefaultRole",
 }
 
-# Create an EMR cluster
-create_emr_cluster = EmrCreateJobFlowOperator(
-    task_id="create_emr_cluster",
-    job_flow_overrides=JOB_FLOW_OVERRIDES,
-    aws_conn_id="aws_default",
-    emr_conn_id="emr_default",
-    dag=dag,
-)
-
-job_sensor = EmrJobFlowSensor(task_id='check_job_flow',
- job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
- dag = dag)
 
 default_args = {
     'owner': 'alejandra.moreno',
@@ -97,7 +85,20 @@ default_args = {
 dag = DAG('s5_dag_logs_review_classification', 
         default_args = default_args,
         description='Executes logs review logic',
-        schedule_interval='@once',
-        dag = dag)
+        schedule_interval='@once')
+
+# Create an EMR cluster
+create_emr_cluster = EmrCreateJobFlowOperator(
+    task_id="create_emr_cluster",
+    job_flow_overrides=JOB_FLOW_OVERRIDES,
+    aws_conn_id="aws_default",
+    emr_conn_id="emr_default",
+    dag=dag,
+)
+
+# Check job flow
+job_sensor = EmrJobFlowSensor(task_id='check_job_flow',
+ job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
+ dag = dag)
 
 create_emr_cluster >> job_sensor
