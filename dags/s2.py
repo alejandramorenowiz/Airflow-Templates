@@ -119,7 +119,8 @@ class postgresql_to_s3(BaseOperator):
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(1)
+    'start_date': datetime(2022, 1, 1),
+    'schedule_interval': 'None'
 }
 
 dag = DAG('s2_dag_insert_userpurchases_s3toPostgres', 
