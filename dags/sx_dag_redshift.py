@@ -2,6 +2,7 @@ import airflow.utils.dates
 from airflow import DAG
 import json
 
+from airflow.operators.postgres_operator import PostgresOperator
 from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
 
 _query = ["""
