@@ -73,6 +73,19 @@ JOB_FLOW_OVERRIDES = {
     "ServiceRole": "EMR_DefaultRole",
 }
 
+
+default_args = {
+    'owner': 'alejandra.moreno',
+    'depends_on_past': False,
+    'start_date': datetime(2022, 1, 1),
+    'schedule_interval': 'None'
+}
+
+dag = DAG('s4_dag_movie_review_classification', 
+        default_args = default_args,
+        description='Executes movie review logic',
+        schedule_interval='@once')
+
 # Create an EMR cluster
 create_emr_cluster = EmrCreateJobFlowOperator(
     task_id="create_emr_cluster",
@@ -82,22 +95,10 @@ create_emr_cluster = EmrCreateJobFlowOperator(
     dag=dag,
 )
 
-
+# Check job flow
 job_sensor = EmrJobFlowSensor(task_id='check_job_flow',
  job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
  dag = dag)
 
-
-default_args = {
-    'owner': 'alejandra.moreno',
-    'depends_on_past': False,
-    'start_date': airflow.utils.dates.days_ago(1)
-}
-
-dag = DAG('s4_dag_movie_review_classification', 
-        default_args = default_args,
-        description='Executes movie review logic',
-        schedule_interval='@once',
-        dag = dag)
 
 create_emr_cluster >> job_sensor
