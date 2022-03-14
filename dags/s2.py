@@ -1,23 +1,22 @@
-from airflow.hooks.postgres_hook import PostgresHook
-from airflow.hooks.S3_hook import S3Hook
-from airflow.providers.amazon.aws.operators.glue import AwsGlueJobOperator
-
-from airflow.models import BaseOperator
-from airflow.utils.decorators import apply_defaults
-from airflow.exceptions import AirflowException
-from airflow.utils.task_group import TaskGroup
+import sys
+from datetime import datetime
 import os.path
 import pandas as pd
 import io
-import boto3
 from io import StringIO
-import csv, re
-
-from datetime import datetime
-import datetime as dt
+import warnings
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
+from airflow.exceptions import AirflowException
+from airflow.hooks.postgres_hook import PostgresHook
+from airflow.hooks.S3_hook import S3Hook
+from airflow.models import BaseOperator
+from airflow.utils.decorators import apply_defaults
+from airflow.utils.task_group import TaskGroup
+
+import boto3
+import csv, re
  
 class user_purchase():
 
