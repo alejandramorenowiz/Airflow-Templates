@@ -1,4 +1,4 @@
-import airflow.utils.dates
+from datetime import datetime
 from airflow import DAG
 
 from airflow.contrib.operators.emr_create_job_flow_operator import EmrCreateJobFlowOperator
