@@ -34,8 +34,8 @@ _query = ["""
                       """]
 
 
-s3_key = "ans/questions_answers.json"
-s3_bucket = "oscar-airflow-bucket"
+s3_key = "..."
+s3_bucket = "..."
 
 default_args = {
     'owner': 'ale',
@@ -50,7 +50,6 @@ dag = DAG('sx_dag_redshift', default_args = default_args, schedule_interval = '@
 task_setup_external_queries = RedshiftSQLOperator(
         postgres_conn_id='redshift_default',
         task_id='setup_external_queries',
-        #redshift_conn_id="redshift_default",
         sql= _query,
         autocommit = True,
         dag = dag
