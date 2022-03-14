@@ -123,7 +123,7 @@ default_args = {
     'schedule_interval': 'None'
 }
 
-dag = DAG('__s3_dag_userpurchases_PostgresToS3', 
+dag = DAG('s3_dag_userpurchases_PostgresToS3', 
         default_args = default_args,
         description='Insert Data from Postgres to S3',
         schedule_interval='@once',        
@@ -138,6 +138,7 @@ postgres_to_s3 = postgresql_to_s3(
         s3_key="user_purchase_data_from_postgres.csv",
         aws_conn_postgres_id="postgres_default",
         aws_conn_id="aws_default",
+        dag = dag
         )
 
 postgres_to_s3
