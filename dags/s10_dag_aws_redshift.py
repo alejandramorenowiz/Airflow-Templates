@@ -55,15 +55,15 @@ query1 = ["""
            """
             CREATE TABLE IF NOT EXISTS public.dim_date (
                 id_fact_movies_analytics BIGINT identity(1, 1) NOT NULL,
-                id_dim_date,
-                id_dim_location,
-                id_dim_device,
-                id_dim_os,
-                id_dim_browser,
-                amount_spend,
-                review_score,
-                review_count,
-                insert date
+                id_dim_date BIGINT,
+                id_dim_location BIGINT,
+                id_dim_device BIGINT,
+                id_dim_os BIGINT,
+                id_dim_browser BIGINT,
+                amount_spend number,
+                review_score integer,
+                review_count integer,
+                insert date date,
                 primary key(id_fact_movies_analytics)
             );
            """]
