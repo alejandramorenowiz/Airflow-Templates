@@ -171,7 +171,7 @@ postgres_to_s3 = postgresql_to_s3(
 
 csvJson = PythonOperator(
         task_id='convertCSVtoParquet',
-        python_callable=csvToParquet,
+        python_callable=d,
         dag = dag)
         
  
