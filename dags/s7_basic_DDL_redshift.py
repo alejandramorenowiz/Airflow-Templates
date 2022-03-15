@@ -44,14 +44,14 @@ _query = ["""
          
                       """
                       create external table fma_schema.user_purchase(
-                        InvoiceNo varchar,
-                        StockCode varchar,
-                        Description varchar,
-                        Quantity int,
-                        InvoiceDate varchar,
-                        UnitPrice numeric,                           
-                        CustomerID int,
-                        Country varchar
+                        invoice_number varchar,
+                        stock_code varchar,
+                        detail varchar,
+                        quantity int,
+                        invoice_date timestamp,
+                        unit_price numeric,                           
+                        customer_id numeric,
+                        country varchar
                       )
                       stored as PARQUET
                       LOCATION 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet/';
