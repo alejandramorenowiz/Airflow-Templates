@@ -18,7 +18,7 @@ from airflow.utils.task_group import TaskGroup
 import boto3
 import csv, re
 import pyarrow as pa
-#import S3FileSystem
+import S3FileSystem
 import pyarrow.parquet as pq
 
 class user_purchase():
@@ -128,7 +128,21 @@ def csvToParquet():
     df=pd.read_csv("s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.csv")
     df.to_parquet('s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet')
     
-    
+ def d():
+    s3 = boto3.client('s3',region_name='us-east-2')
+    obj = s3.get_object(Bucket='staging-layer20220307050201862200000005', Key='/user_purchase_data_from_postgres.csv')
+    df = pd.read_csv(obj['Body'])
+
+    table = pa.Table.from_pandas(df)
+
+    output_file = "s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet"  # S3 Path need to mention
+    s3 = S3FileSystem()
+
+    pq.write_to_dataset(table=table,
+                    root_path=output_file,
+                    partition_cols=['invoice_number','stock_code','detail','quantity','invoice_date','unit_price','customer_id','country'],
+                    filesystem=s3)
+       
 
 default_args = {
     'owner': 'alejandra.moreno',
