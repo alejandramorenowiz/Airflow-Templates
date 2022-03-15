@@ -4,6 +4,7 @@ import os.path
 import pandas as pd
 import io
 import warnings
+from io import StringIO
 
 from airflow import DAG
 from airflow.operators.python_operator import PythonOperator
