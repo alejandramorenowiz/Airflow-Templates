@@ -1,28 +1,19 @@
-import sys
 from datetime import datetime
-import os.path
-import pandas as pd
-import io
-import warnings
-
-import sys
-from datetime import datetime
-import os.path
-import pandas as pd
-import io
-import warnings
-
-sys.path.append("/opt/airflow/dags/repo/custom_modules")
-from data_quality import DataQualityOperator
-from load_dimension import LoadDimensionOperator
-from load_fact import LoadFactOperator
-from stage_redshift import StageToRedshiftOperator
-from sql_queries import SqlQueries
-
 from airflow import DAG
-from airflow.contrib.hooks.aws_hook import AwsHook
-from airflow.operators.dummy_operator import DummyOperator
+import json
+
 from airflow.operators.postgres_operator import PostgresOperator
+from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
+
+query1 = ["""
+            CREATE TABLE IF NOT EXISTS public.songs (
+                id_os varchar(256) NOT NULL,
+                os varchar(256),
+                CONSTRAINT os_pkey PRIMARY KEY (id_os)
+            );
+           """]
+
+
 
 default_args = {
     'owner': 'alejandra.moreno',
@@ -31,33 +22,16 @@ default_args = {
     'schedule_interval': 'None'
 }
 
-dag = DAG('aws_redshift_dag',
-          default_args=default_args,
-          description='Extract data from S3 and transform to Redshift',
-          schedule_interval='@once',
-          catchup=False
-          )
-
-start_operator = DummyOperator(task_id='Begin_execution', dag=dag)
-schema_created = DummyOperator(task_id='Schema_created', dag=dag)
-run_quality_checks = DummyOperator(task_id='Run_data_quality_checks', dag=dag)
-
-create_songs_table = PostgresOperator(
-    task_id='Create_songs_table',
-    dag=dag,
-    postgres_conn_id='redshift',
-    sql=SqlQueries.songs_table_create
-)
-
-load_song_dimension_table = LoadDimensionOperator(
-    task_id='Load_songs_dim_table',
-    dag=dag, table='songs',
-    select_sql=SqlQueries.songs_table_insert,
-    mode='truncate'
-)
+dag = DAG('s10_dim_DDL_redshift', 
+        default_args = default_args,     
+        description='Insert user_purchases, moview_review and log_review tables',
+        schedule_interval='@once')
 
 
-start_operator >> create_songs_table
-create_songs_table >> schema_created
-schema_created >> load_song_dimension_table
-load_song_dimension_table >> run_quality_checks
+setup_dim_tables = PostgresOperator(
+        postgres_conn_id='redshift_default',
+        task_id='setup_dim_table',
+        sql= query1,
+        autocommit = True,
+        dag = dag
+        )
