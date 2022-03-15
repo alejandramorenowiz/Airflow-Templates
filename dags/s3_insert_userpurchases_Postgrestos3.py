@@ -123,6 +123,10 @@ def csvToJson():
     #for i,rw in df.iterrows():
    #     print({'first_name':rw['firstName'],'last_name': rw['lastName'], 'job': rw['Job']})
     df.to_json('s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.json',orient='records')
+   
+def csvToParquet():
+    df=pd.read_csv("s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.csv")
+    df.to_parquet('s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet')
     
     
 def d():
@@ -167,7 +171,7 @@ postgres_to_s3 = postgresql_to_s3(
 
 csvJson = PythonOperator(
         task_id='convertCSVtoParquet',
-        python_callable=d,
+        python_callable=csvToParquet,
         dag = dag)
         
  
