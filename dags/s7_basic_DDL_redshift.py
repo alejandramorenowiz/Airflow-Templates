@@ -15,7 +15,7 @@ _query = ["""
                       "drop table if exists fma_schema.log_reviews;",
                       "drop table if exists fma_schema.movie_reviews;",
                       "drop table if exists fma_schema.user_purchase;",
-                      "drop table if exists fma_schema.dim?os;",
+                      "drop table if exists fma_schema.dim_os;",
                 
                       """
                       create external table fma_schema.log_reviews(
