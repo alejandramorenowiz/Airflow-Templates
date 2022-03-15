@@ -17,7 +17,10 @@ from airflow.utils.task_group import TaskGroup
 
 import boto3
 import csv, re
- 
+import pyarrow as pa
+from s3fs import S3FileSystem
+import pyarrow.parquet as pq
+
 class user_purchase():
 
     @apply_defaults
@@ -121,6 +124,22 @@ def csvToJson():
    #     print({'first_name':rw['firstName'],'last_name': rw['lastName'], 'job': rw['Job']})
     df.to_json('s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.json',orient='records')
     
+    
+def d():
+    s3 = boto3.client('s3',region_name='us-east-2')
+    obj = s3.get_object(Bucket='staging-layer20220307050201862200000005', Key='/user_purchase_data_from_postgres.csv')
+    df = pd.read_csv(obj['Body'])
+
+    table = pa.Table.from_pandas(df)
+
+    output_file = "s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet"  # S3 Path need to mention
+    s3 = S3FileSystem()
+
+    pq.write_to_dataset(table=table,
+                    root_path=output_file,
+                    partition_cols=['invoice_number','stock_code','detail','quantity','invoice_date','unit_price','customer_id','country'],
+                    filesystem=s3)
+    
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
@@ -147,8 +166,8 @@ postgres_to_s3 = postgresql_to_s3(
         )
 
 csvJson = PythonOperator(
-        task_id='convertCSVtoJson',
-        python_callable=csvToJson,
+        task_id='convertCSVtoParquet',
+        python_callable=d,
         dag = dag)
         
  
