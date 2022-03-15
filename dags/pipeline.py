@@ -495,7 +495,7 @@ postgres_to_s3 = postgresql_to_s3(
  
 # Create an EMR cluster - MOVIES
 create_emr_cluster_movie = EmrCreateJobFlowOperator(
-    task_id="create_emr_cluster",
+    task_id="create_emr_cluster1",
     job_flow_overrides=JOB_FLOW_OVERRIDES,
     aws_conn_id="aws_default",
     emr_conn_id="emr_default",
@@ -509,7 +509,7 @@ job_sensor_movie = EmrJobFlowSensor(task_id='check_job_flow',
 
 # Create an EMR cluster - LOGS
 create_emr_cluster_logs = EmrCreateJobFlowOperator(
-    task_id="create_emr_cluster",
+    task_id="create_emr_cluster2",
     job_flow_overrides=JOB_FLOW_OVERRIDES,
     aws_conn_id="aws_default",
     emr_conn_id="emr_default",
@@ -524,7 +524,7 @@ job_sensor_logs = EmrJobFlowSensor(task_id='check_job_flow',
 
 # Create an EMR cluster - LOGSBROWSER
 create_emr_cluster_logsbrowser = EmrCreateJobFlowOperator(
-    task_id="create_emr_cluster",
+    task_id="create_emr_cluster3",
     job_flow_overrides=JOB_FLOW_OVERRIDES,
     aws_conn_id="aws_default",
     emr_conn_id="emr_default",
