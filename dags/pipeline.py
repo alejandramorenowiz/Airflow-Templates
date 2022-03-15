@@ -33,6 +33,12 @@ from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
 s3_key = "..."
 s3_bucket = "..."
 
+BUCKET_NAME = "customerbucketam"
+s3_data = "..."
+s3_script = "...."
+s3_clean = "..."
+logs_location = "..."
+
 class user_purchase():
 
     @apply_defaults
