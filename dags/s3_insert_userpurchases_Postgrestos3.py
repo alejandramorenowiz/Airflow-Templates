@@ -115,7 +115,12 @@ class postgresql_to_s3(BaseOperator):
                 w.writerow(vars(obj))
         s3_client.put_object(Bucket=self.s3_bucket, Key=self.s3_key, Body=f.getvalue())
 
-
+def csvToJson():
+    df=pd.read_csv("s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.csv")
+    #for i,rw in df.iterrows():
+   #     print({'first_name':rw['firstName'],'last_name': rw['lastName'], 'job': rw['Job']})
+    df.to_json('s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.json',orient='records')
+    
 default_args = {
     'owner': 'alejandra.moreno',
     'depends_on_past': False,
@@ -141,4 +146,8 @@ postgres_to_s3 = postgresql_to_s3(
         dag = dag
         )
 
-postgres_to_s3
+csvJson = PythonOperator(
+        task_id='convertCSVtoJson',
+        python_callable=csvToJson)
+
+postgres_to_s3 >> csvJson
