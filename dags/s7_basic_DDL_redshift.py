@@ -55,14 +55,6 @@ _query = ["""
                       )
                       stored as PARQUET
                       LOCATION 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet/';
-                      """,
-                      
-                      """                    
-                      CREATE TABLE IF NOT EXISTS fma_schema.dim_os (
-                      id_os varchar(32) NOT NULL,
-                      os varchar(256),
-                      CONSTRAINT idos_pkey PRIMARY KEY (id_os)
-                      );
                       """]
 
 
