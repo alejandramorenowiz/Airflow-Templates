@@ -367,7 +367,8 @@ dim_tables_populate = PostgresOperator(
         )
 
 
-s3_to_postgres_operator >> postgres_to_s3
-[moview_review_raw_transfer, log_review_raw_transfer ] >> create_emr_cluster >> step_adder >> step_checker >> terminate_emr_cluster
-setup_principal_tables >> setup_dim_tables >> dim_tables_populate
+s3_to_postgres_operator >> postgres_to_s3 >> create_emr_cluster
+[moview_review_raw_transfer, log_review_raw_transfer ] >> create_emr_cluster
+create_emr_cluster >> step_adder >> step_checker >> terminate_emr_cluster >> setup_principal_tables >> setup_dim_tables >> dim_tables_populate
+
 
