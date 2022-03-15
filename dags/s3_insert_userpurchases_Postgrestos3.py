@@ -128,7 +128,7 @@ def csvToParquet():
     df=pd.read_csv("s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.csv")
     df.to_parquet('s3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet')
     
- def d():
+def d():
     s3 = boto3.client('s3',region_name='us-east-2')
     obj = s3.get_object(Bucket='staging-layer20220307050201862200000005', Key='/user_purchase_data_from_postgres.csv')
     df = pd.read_csv(obj['Body'])
