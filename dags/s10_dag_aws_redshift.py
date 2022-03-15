@@ -6,11 +6,11 @@ from airflow.operators.postgres_operator import PostgresOperator
 from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
 
 query1 = ["""
-            drop table apprdb.public.dim_os;
-            drop table apprdb.public.dim_browser;
-            drop table apprdb.public.dim_devices;
-            drop table apprdb.public.dim_location;
-            drop table apprdb.public.dim_date;          
+            drop table if exists apprdb.public.dim_os;
+            drop table if exists apprdb.public.dim_browser;
+            drop table if exists apprdb.public.dim_devices;
+            drop table if exists apprdb.public.dim_location;
+            drop table if exists apprdb.public.dim_date;          
          """,  
          """  
             CREATE TABLE IF NOT EXISTS public.dim_os (
