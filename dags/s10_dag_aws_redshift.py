@@ -6,45 +6,56 @@ from airflow.operators.postgres_operator import PostgresOperator
 from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
 
 query1 = ["""
+            drop table apprdb.public.dim_os;
+            drop table apprdb.public.dim_browser;
+            drop table apprdb.public.dim_devices;
+            drop table apprdb.public.dim_location;
+            drop table apprdb.public.dim_date;          
+         """,  
+         """  
             CREATE TABLE IF NOT EXISTS public.dim_os (
-                id_dim_os varchar(256) NOT NULL,
+                id_dim_os BIGINT identity(1, 1) NOT NULL,
                 os varchar(256),
-                CONSTRAINT os_pkey PRIMARY KEY (id_dim_os)
+                primary key(id_dim_os)
             );
           """,
           """
             CREATE TABLE IF NOT EXISTS public.dim_browser (
-                id_dim_browser varchar(256) NOT NULL,
+                id_dim_browser BIGINT identity(1, 1) NOT NULL,
                 browser varchar(256),
-                CONSTRAINT browser_pkey PRIMARY KEY (id_dim_browser)
+                primary key(id_dim_browser))
             );
            """,
           """
             CREATE TABLE IF NOT EXISTS public.dim_devices (
-                id_dim_device varchar(256) NOT NULL,
+                id_dim_device BIGINT identity(1, 1) NOT NULL,
                 device varchar(256),
-                CONSTRAINT device_pkey PRIMARY KEY (id_dim_device)
+                primary key(id_dim_device))
             );
            """,
            """
             CREATE TABLE IF NOT EXISTS public.dim_location (
-                id_dim_location varchar(256) NOT NULL,
+                id_dim_location BIGINT identity(1, 1) NOT NULL,
                 location varchar(256),
-                CONSTRAINT location_pkey PRIMARY KEY (id_dim_location)
+                primary key(id_dim_location))
             );
           """,
           """
             CREATE TABLE IF NOT EXISTS public.dim_date (
-                id_dim_date varchar(256) NOT NULL,
+                id_dim_date BIGINT identity(1, 1) NOT NULL,
                 log_date varchar(256),
                 day varchar(256),
                 month varchar(256),
                 year varchar(256),
                 season varchar(256),
-                CONSTRAINT date_pkey PRIMARY KEY (id_dim_date)
+                primary key(id_dim_date))
             );
            """]
 
+query2 = ["""
+           INSERT INTO apprdb.public.dim_os (os) (SELECT distinct os
+           FROM fma_schema.log_reviews);
+           """]
 
 
 default_args = {
@@ -67,3 +78,13 @@ setup_dim_tables = PostgresOperator(
         autocommit = True,
         dag = dag
         )
+
+dim_tables = PostgresOperator(
+        postgres_conn_id='redshift_default',
+        task_id='_dim_table',
+        sql= query2,
+        autocommit = True,
+        dag = dag
+        )
+
+setup_dim_tables >> dim_tables
