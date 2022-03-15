@@ -23,7 +23,7 @@ query1 = ["""
             CREATE TABLE IF NOT EXISTS public.dim_devices (
                 id_dim_device varchar(256) NOT NULL,
                 device varchar(256),
-                CONSTRAINT device_pkey PRIMARY KEY (id_dim_devices)
+                CONSTRAINT device_pkey PRIMARY KEY (id_dim_device)
             );
            """,
            """
