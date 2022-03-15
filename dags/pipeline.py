@@ -566,6 +566,6 @@ dim_tables = PostgresOperator(
 
 s3_to_postgres_operator >> postgres_to_s3
 
-[moview_review_raw_transfer, log_review_raw_transfer ] >>  [create_emr_cluster_movie >> job_sensor_movie] >> [create_emr_cluster_logs >> job_sensor_logs] >> [create_emr_cluster_logsbrowser >> job_sensor_logsbrowser]
+[moview_review_raw_transfer, log_review_raw_transfer ] >>  create_emr_cluster_movie >> job_sensor_movie >> create_emr_cluster_logs >> job_sensor_logs >> create_emr_cluster_logsbrowser >> job_sensor_logsbrowser
 
-dim_tables >> setup_dim_tables >> dim_tables
+setup_task_create_tables >>  setup_dim_tables >> dim_tables
