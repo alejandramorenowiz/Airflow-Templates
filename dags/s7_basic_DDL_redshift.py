@@ -53,8 +53,11 @@ _query = ["""
                         customer_id numeric,
                         country varchar
                       )
-                      stored as PARQUET
-                      LOCATION 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet/';
+                      row format delimited
+                      fields terminated by ','
+                      stored as textfile
+                      location 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.json/'
+                      table properties ('skip.header.line.count'='1');
                       """]
 
 
