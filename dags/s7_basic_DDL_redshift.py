@@ -13,10 +13,9 @@ _query = ["""
                       create external database if not exists;""",
 
                       "drop table if exists fma_schema.log_reviews;",
-
                       "drop table if exists fma_schema.movie_reviews;",
-
                       "drop table if exists fma_schema.user_purchase;",
+                      "drop table if exists fma_schema.dim?os;",
                 
                       """
                       create external table fma_schema.log_reviews(
@@ -54,12 +53,17 @@ _query = ["""
                         customer_id int,
                         country varchar
                       )
-                      row format delimited
-                      fields terminated by ','
-                      stored as textfile
-                      location 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.txt'
-                      table properties ('skip.header.line.count'='1');
-                      """ ]
+                      stored as PARQUET
+                      LOCATION 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.parquet/';
+                      """,
+                      
+                      """
+                      create external table fma_schema.dim_os(
+                        id_os varchar NOT NULL,            
+                        os varchar(256),
+                        CONSTRAINT idos_pkey PRIMARY KEY (id_os)
+                      );
+                      """]
 
 
 s3_key = "..."
