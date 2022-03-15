@@ -47,17 +47,14 @@ _query = ["""
                         invoice_number varchar,
                         stock_code varchar,
                         detail varchar,
-                        quantity int,
-                        invoice_date timestamp,
-                        unit_price numeric,                           
-                        customer_id numeric,
+                        quantity varchar,
+                        invoice_date varchar,
+                        unit_price varchar,                           
+                        customer_id varchar,
                         country varchar
                       )
-                      row format delimited
-                      fields terminated by ','
-                      stored as textfile
-                      location 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.json/'
-                      table properties ('skip.header.line.count'='1');
+                      stored as PARQUET
+                      LOCATION 's3://staging-layer20220307050201862200000005/user_purchase_.parquet/';
                       """]
 
 
