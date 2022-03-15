@@ -10,7 +10,8 @@ query1 = ["""
             drop table if exists apprdb.public.dim_browser;
             drop table if exists apprdb.public.dim_devices;
             drop table if exists apprdb.public.dim_location;
-            drop table if exists apprdb.public.dim_date;          
+            drop table if exists apprdb.public.dim_date;  
+            drop table if exists apprdb.public.fact_movies_analytics;
          """,  
          """  
             CREATE TABLE IF NOT EXISTS public.dim_os (
@@ -49,6 +50,21 @@ query1 = ["""
                 year varchar(256),
                 season varchar(256),
                 primary key(id_dim_date)
+            );
+           """,
+           """
+            CREATE TABLE IF NOT EXISTS public.dim_date (
+                id_fact_movies_analytics BIGINT identity(1, 1) NOT NULL,
+                id_dim_date,
+                id_dim_location,
+                id_dim_device,
+                id_dim_os,
+                id_dim_browser,
+                amount_spend,
+                review_score,
+                review_count,
+                insert date
+                primary key(id_fact_movies_analytics)
             );
            """]
 
