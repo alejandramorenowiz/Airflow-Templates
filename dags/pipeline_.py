@@ -445,7 +445,7 @@ default_args = {
     'schedule_interval': 'None'
 }
 
-dag = DAG('complete_pipeline', 
+dag = DAG('complete_pipeline_', 
         default_args = default_args,     
         description='Insert Data from CSV in S3 To Postgres',
         schedule_interval='@once')
