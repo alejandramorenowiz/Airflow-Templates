@@ -148,6 +148,8 @@ postgres_to_s3 = postgresql_to_s3(
 
 csvJson = PythonOperator(
         task_id='convertCSVtoJson',
-        python_callable=csvToJson)
-
+        python_callable=csvToJson,
+        dag = dag)
+        
+ 
 postgres_to_s3 >> csvJson
