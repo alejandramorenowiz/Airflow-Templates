@@ -18,7 +18,7 @@ from airflow.utils.task_group import TaskGroup
 import boto3
 import csv, re
 import pyarrow as pa
-import S3FileSystem
+#import S3FileSystem
 import pyarrow.parquet as pq
 
 class user_purchase():
