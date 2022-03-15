@@ -55,7 +55,20 @@ query1 = ["""
 query2 = ["""
            INSERT INTO apprdb.public.dim_os (os) (SELECT distinct os
            FROM fma_schema.log_reviews);
-           """]
+           """,
+          """
+           INSERT INTO apprdb.public.dim_browser (os) (SELECT distinct browser
+           FROM fma_schema.log_reviews);
+           """,
+          """
+           INSERT INTO apprdb.public.dim_devices (os) (SELECT distinct device
+           FROM fma_schema.log_reviews);
+           """,
+          """
+           INSERT INTO apprdb.public.dim_location (os) (SELECT distinct location
+           FROM fma_schema.log_reviews);
+           """,
+         ]
 
 
 default_args = {
