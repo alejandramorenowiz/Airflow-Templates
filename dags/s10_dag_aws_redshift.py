@@ -1,10 +1,13 @@
 from datetime import datetime, timedelta
 import os
+import sys
 from airflow import DAG
 from airflow.contrib.hooks.aws_hook import AwsHook
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.postgres_operator import PostgresOperator
+sys.path.append("/opt/airflow/dags/repo/operators")
 from operators import StageToRedshiftOperator, LoadFactOperator, LoadDimensionOperator, DataQualityOperator
+sys.path.append("/opt/airflow/dags/repo/helpers")
 from helpers import SqlQueries
 
 default_args = {
