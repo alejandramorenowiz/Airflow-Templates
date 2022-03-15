@@ -63,7 +63,7 @@ query1 = ["""
                 amount_spend number,
                 review_score integer,
                 review_count integer,
-                insert date date,
+                insert_date date,
                 primary key(id_fact_movies_analytics)
             );
            """]
