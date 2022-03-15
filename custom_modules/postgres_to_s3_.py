@@ -1,3 +1,5 @@
+from airflow.utils.decorators import apply_defaults
+
 class user_purchase():
 
     @apply_defaults
