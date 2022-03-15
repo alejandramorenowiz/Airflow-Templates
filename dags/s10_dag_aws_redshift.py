@@ -23,21 +23,21 @@ query1 = ["""
             CREATE TABLE IF NOT EXISTS public.dim_browser (
                 id_dim_browser BIGINT identity(1, 1) NOT NULL,
                 browser varchar(256),
-                primary key(id_dim_browser))
+                primary key(id_dim_browser)
             );
            """,
           """
             CREATE TABLE IF NOT EXISTS public.dim_devices (
                 id_dim_device BIGINT identity(1, 1) NOT NULL,
                 device varchar(256),
-                primary key(id_dim_device))
+                primary key(id_dim_device)
             );
            """,
            """
             CREATE TABLE IF NOT EXISTS public.dim_location (
                 id_dim_location BIGINT identity(1, 1) NOT NULL,
                 location varchar(256),
-                primary key(id_dim_location))
+                primary key(id_dim_location)
             );
           """,
           """
@@ -48,7 +48,7 @@ query1 = ["""
                 month varchar(256),
                 year varchar(256),
                 season varchar(256),
-                primary key(id_dim_date))
+                primary key(id_dim_date)
             );
            """]
 
