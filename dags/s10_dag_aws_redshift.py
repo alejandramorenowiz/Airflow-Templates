@@ -12,12 +12,11 @@ import pandas as pd
 import io
 import warnings
 
-sys.path.append("/opt/airflow/dags/repo/operators")
+sys.path.append("/opt/airflow/dags/repo/custom_modules")
 from data_quality import DataQualityOperator
 from load_dimension import LoadDimensionOperator
 from load_fact import LoadFactOperator
 from stage_redshift import StageToRedshiftOperator
-sys.path.append("/opt/airflow/dags/repo/helpers")
 from sql_queries import SqlQueries
 
 from airflow import DAG
