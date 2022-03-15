@@ -4,14 +4,26 @@ import os.path
 import pandas as pd
 import io
 import warnings
+
+import sys
+from datetime import datetime
+import os.path
+import pandas as pd
+import io
+import warnings
+
+sys.path.append("/opt/airflow/dags/repo/operators")
+from data_quality import DataQualityOperator
+from load_dimension import LoadDimensionOperator
+from load_fact import LoadFactOperator
+from stage_redshift import StageToRedshiftOperator
+sys.path.append("/opt/airflow/dags/repo/helpers")
+from sql_queries import SqlQueries
+
 from airflow import DAG
 from airflow.contrib.hooks.aws_hook import AwsHook
 from airflow.operators.dummy_operator import DummyOperator
 from airflow.operators.postgres_operator import PostgresOperator
-sys.path.append("/opt/airflow/dags/repo/operators")
-from operators import StageToRedshiftOperator, LoadFactOperator, LoadDimensionOperator, DataQualityOperator
-sys.path.append("/opt/airflow/dags/repo/helpers")
-from helpers import SqlQueries
 
 default_args = {
     'owner': 'alejandra.moreno',
