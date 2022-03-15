@@ -44,13 +44,13 @@ _query = ["""
          
                       """
                       create external table fma_schema.user_purchase(
-                        invoice_number varchar,
-                        stock_code varchar,
-                        detail varchar,
+                        invoiceNo varchar,
+                        stockCode varchar,
+                        description varchar,
                         quantity varchar,
-                        invoice_date varchar,
-                        unit_price varchar,                           
-                        customer_id varchar,
+                        invoiceDate varchar,
+                        unitPrice varchar,                           
+                        customerID varchar,
                         country varchar
                       )
                       stored as PARQUET
