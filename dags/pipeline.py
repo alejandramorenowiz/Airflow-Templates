@@ -30,6 +30,9 @@ from airflow.contrib.operators.emr_terminate_job_flow_operator import EmrTermina
 from airflow.operators.postgres_operator import PostgresOperator
 from airflow.providers.amazon.aws.operators.redshift import RedshiftSQLOperator
 
+s3_key = "..."
+s3_bucket = "..."
+
 class user_purchase():
 
     @apply_defaults
