@@ -56,7 +56,7 @@ _query = ["""
                       row format delimited
                       fields terminated by ','
                       stored as textfile
-                      location 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.json'
+                      location 's3://staging-layer20220307050201862200000005/user_purchase_data_from_postgres.json/'
                       table properties ('skip.header.line.count'='1');
                       """]
 
