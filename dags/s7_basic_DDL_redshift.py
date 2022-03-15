@@ -27,7 +27,7 @@ _query = ["""
                         logDate varchar,    
                         os varchar,           
                         phoneNumber varchar,
-                        browser varchar,
+                        browser varchar
                       )
                       stored as PARQUET
                       LOCATION 's3://staging-layer20220307050201862200000005/log_reviews_clean_b.parquet';
