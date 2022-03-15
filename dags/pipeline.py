@@ -503,7 +503,7 @@ create_emr_cluster_movie = EmrCreateJobFlowOperator(
 )
 
 # Check job flow - MOVIES
-job_sensor_movie = EmrJobFlowSensor(task_id='check_job_flow',
+job_sensor_movie = EmrJobFlowSensor(task_id='check_job_flow1',
  job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
  dag = dag)
 
@@ -517,7 +517,7 @@ create_emr_cluster_logs = EmrCreateJobFlowOperator(
 )
 
 # Check job flow - LOGS
-job_sensor_logs = EmrJobFlowSensor(task_id='check_job_flow',
+job_sensor_logs = EmrJobFlowSensor(task_id='check_job_flow2',
  job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
  dag = dag)
 
@@ -532,7 +532,7 @@ create_emr_cluster_logsbrowser = EmrCreateJobFlowOperator(
 )
 
 # Check job flow
-job_sensor_logsbrowser = EmrJobFlowSensor(task_id='check_job_flow',
+job_sensor_logsbrowser = EmrJobFlowSensor(task_id='check_job_flow3',
  job_flow_id="{{ task_instance.xcom_pull(task_ids='create_emr_cluster', key='return_value') }}",
  dag = dag)
 
